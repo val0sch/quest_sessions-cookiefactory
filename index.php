@@ -1,5 +1,15 @@
+<?php session_start(); ?>
 <?php require 'inc/data/products.php'; ?>
 <?php require 'inc/head.php'; ?>
+<?php
+if ($_SERVER["REQUEST_METHOD"] === "GET" && !empty($_GET)) {
+    $id = $_GET['add_to_cart'];
+    $_SESSION['cart'][] = $id;
+    header('Location:index.php');
+};
+?>
+
+
 <section class="cookies container-fluid">
     <div class="row">
         <?php foreach ($catalog as $id => $cookie) { ?>
@@ -11,6 +21,7 @@
                         <p><?= $cookie['description']; ?></p>
                         <a href="?add_to_cart=<?= $id; ?>" class="btn btn-primary">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
+
                         </a>
                     </figcaption>
                 </figure>
